@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    // "target": "es6",
+    "target": "es6",
     "checkJs": true,
     "jsx": "preserve",
     "module": "esnext",
-    "lib": ["es6","dom", "dom.iterable", "esnext"],
+    "lib": ["es6", "dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -21,7 +21,7 @@
     ],
     "paths": {
       "*": ["./src/*"],
-      "@public/*": ["./public/*"],
+      "@public/*": ["./public/*"]
     },
     "noImplicitAny": true,
     "noImplicitThis": true,

@@ -93,7 +93,7 @@ const Teams = () => {
     console.log('res', res);
   }, [])
 
-  return findLogo('den')
+  return findLogo('cha')
 }
 
 export default Teams
