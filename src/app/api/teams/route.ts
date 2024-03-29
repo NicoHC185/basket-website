@@ -1,24 +1,33 @@
-import axios from "axios";
 import { NextResponse } from "next/server";
 import puppeteer from "puppeteer-extra";
 import Adblocker from "puppeteer-extra-plugin-adblocker";
 import UserAgent from "user-agents";
 
 import { JSDOM } from "jsdom";
+import { setTimeout } from "timers/promises";
+import { IConference, ITeam } from "interfaces";
 
 const url = `https://www.basketball-reference.com/leagues/`;
 
 function checkCode(code?: string) {
-  if (code === "cho") {
-    return "cha";
+  switch (code) {
+    case "brk":
+      return "bkn";
+    case "cho":
+      return "cha";
+    case "pho":
+      return "phx";
+    default:
+      return code;
   }
-  return code;
 }
 
-const getTeamsByHTML = (el: Document) => {
-  const conference = el.querySelector("h4")?.textContent;
-  const teamsElements = el.querySelectorAll("table>tbody>tr");
-  const teams = [...teamsElements].map((el) => {
+const getTeams = ({
+  teamsHTML,
+}: {
+  teamsHTML: NodeListOf<Element>;
+}): ITeam[] => {
+  const teams = [...teamsHTML].map((el) => {
     const href = el?.querySelector("td>a")?.getAttribute("href");
     const code = href?.split("/")[2].toLowerCase() || "";
     const regex = /\(|\)/g;
@@ -34,13 +43,20 @@ const getTeamsByHTML = (el: Document) => {
       code: checkCode(code),
     };
   });
+  return teams;
+};
+
+const getConferences = (el: Document): IConference => {
+  const name = el.querySelector("h4")?.textContent;
+  const teamsElements = el.querySelectorAll("table>tbody>tr");
+  const teams: ITeam[] = getTeams({ teamsHTML: teamsElements });
   return {
-    conference,
+    name,
     teams,
   };
 };
 
-const Puppeteer = async () => {
+const Puppeteer: () => Promise<IConference[]> = async () => {
   puppeteer.use(Adblocker({ blockTrackers: true }));
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
@@ -52,14 +68,14 @@ const Puppeteer = async () => {
   });
   await page.goto(url);
   await page.hover("#header_teams");
-
-  const elements = await page.$$eval(
+  setTimeout(300);
+  const elements: string[] = await page.$$eval(
     "#header_teams>div>.list",
     (el: Element[]) => el.map((item) => item.outerHTML)
   );
-  const res = elements.map((el) => {
+  const res: IConference[] = elements.map((el) => {
     const DOM = new JSDOM(el);
-    return getTeamsByHTML(DOM.window.document);
+    return getConferences(DOM.window.document);
   });
 
   await browser.close();
@@ -68,5 +84,5 @@ const Puppeteer = async () => {
 
 export async function GET(request: Request) {
   const response = await Puppeteer();
-  return NextResponse.json({ response });
+  return NextResponse.json(response);
 }
