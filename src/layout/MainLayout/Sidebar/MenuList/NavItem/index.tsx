@@ -62,10 +62,7 @@ const NavItem = ({ item, level }: {
   }
 
   const newUrl = useMemo(() => {
-    if (zone) {
-      return `${zone}/${item.url}`
-    }
-    return item.url
+    return `/${item.url}`
   }, [])
 
   let listItemProps: {
