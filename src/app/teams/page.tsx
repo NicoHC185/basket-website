@@ -6,7 +6,7 @@ import Logos from 'icons'
 import { IConference } from 'interfaces'
 import { useEffect, useState } from 'react'
 import { findLogo } from 'utils'
-import Team from './Team'
+import TeamCard from './Team'
 
 const url = 'http://localhost:3000/api'
 
@@ -43,7 +43,7 @@ const Teams = () => {
               {
                 conference.teams.map(team =>
                   <Grid item>
-                    <Team team={team}></Team>
+                    <TeamCard team={team}></TeamCard>
                   </Grid>
                 )
               }

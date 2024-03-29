@@ -1,9 +1,9 @@
-import { Card, CardContent, CardHeader, Paper, Stack, styled, useTheme } from "@mui/material"
+import { Card, CardContent, CardHeader, Link, Paper, Stack, styled, useTheme } from "@mui/material"
 import { ITeam } from "interfaces"
 import { useEffect, useMemo } from "react"
 import { findLogo } from "utils"
 import colors from '@public/assets/scss/_themes-vars.module.scss';
-import Link from "next/link";
+// import Link from "next/link";
 
 const PaperResult = ({ team, field }: { team: ITeam, field: 'victories' | 'defeats' }) => {
   const theme = useTheme()
@@ -15,10 +15,10 @@ const PaperResult = ({ team, field }: { team: ITeam, field: 'victories' | 'defea
   >{team[field]}</Paper>
 }
 
-const Team = ({ team }: { team: ITeam }) => {
+const TeamCard = ({ team }: { team: ITeam }) => {
 
   return (
-    <Link href={`/teams/${team.code}`}>
+    <Link href={`/teams/${team.code}`} underline="none">
       <Card sx={{
         ':hover': {
           boxShadow: 20, // theme.shadows[20]
@@ -44,4 +44,4 @@ const Team = ({ team }: { team: ITeam }) => {
   )
 }
 
-export default Team
+export default TeamCard
