@@ -36,13 +36,13 @@ const Teams = () => {
   return (
     <MainCard title="Teams">
       {
-        conferences.map(conference => (
-          <Stack spacing={2} sx={{ py: 2 }}>
+        conferences.map((conference, idx) => (
+          <Stack spacing={2} sx={{ py: 2 }} key={idx}>
             <Typography variant='h4'>{conference.name}</Typography>
             <Grid container spacing={2}>
               {
                 conference.teams.map(team =>
-                  <Grid item>
+                  <Grid item key={team.code}>
                     <TeamCard team={team}></TeamCard>
                   </Grid>
                 )
