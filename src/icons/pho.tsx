@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PHX = ({ size = 100 }: { size?: number }) => {
+const PHO = ({ size = 100 }: { size?: number }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -39,4 +39,4 @@ const PHX = ({ size = 100 }: { size?: number }) => {
   );
 };
 
-export default PHX;
+export default PHO;

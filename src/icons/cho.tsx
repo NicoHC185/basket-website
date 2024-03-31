@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CHA = ({ size = 100 }: { size?: number }) => {
+const CHO = ({ size = 100 }: { size?: number }) => {
 
   return (
     <svg
@@ -66,4 +66,4 @@ const CHA = ({ size = 100 }: { size?: number }) => {
   );
 };
 
-export default CHA;
+export default CHO;

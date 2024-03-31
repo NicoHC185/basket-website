@@ -1,7 +1,7 @@
 import Atl from 'icons/atl'
-import Bkn from 'icons/bkn'
+import Brk from 'icons/brk'
 import Bos from 'icons/bos'
-import Cha from 'icons/cha'
+import Cho from 'icons/cho'
 import Chi from 'icons/chi'
 import Cle from 'icons/cle'
 import Dal from 'icons/dal'
@@ -21,7 +21,7 @@ import Nyk from 'icons/nyk'
 import Okc from 'icons/okc'
 import Orl from 'icons/orl'
 import Phi from 'icons/phi'
-import Phx from 'icons/phx'
+import Pho from 'icons/pho'
 import Por from 'icons/por'
 import Sac from 'icons/sac'
 import Sas from 'icons/sas'
@@ -38,16 +38,16 @@ export default [
     logo: <Atl></Atl>
   },
   {
-    code: 'bkn',
-    logo: <Bkn></Bkn>
+    code: 'brk',
+    logo: <Brk></Brk>
   },
   {
     code: 'bos',
     logo: <Bos></Bos>
   },
   {
-    code: 'cha',
-    logo: <Cha></Cha>
+    code: 'cho',
+    logo: <Cho></Cho>
   },
   {
     code: 'chi',
@@ -126,8 +126,8 @@ export default [
     logo: <Phi></Phi>
   },
   {
-    code: 'phx',
-    logo: <Phx></Phx>
+    code: 'pho',
+    logo: <Pho></Pho>
   },
   {
     code: 'por',

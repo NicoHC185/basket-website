@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const BKN = ({ size = 100 }: { size?: number }) => {
+const BRK = ({ size = 100 }: { size?: number }) => {
 
   return (
     <svg
@@ -35,4 +35,4 @@ const BKN = ({ size = 100 }: { size?: number }) => {
   );
 };
 
-export default BKN;
+export default BRK;
