@@ -1,5 +1,3 @@
-// https://www.basketball-reference.com/teams/PHO/2024.html
-
 import { NextResponse } from "next/server";
 import puppeteer from "puppeteer-extra";
 import Adblocker from "puppeteer-extra-plugin-adblocker";
@@ -49,42 +47,30 @@ const Puppeteer = async ({ url }: { url: string }) => {
     height: 1080,
   });
   await page.goto(url);
-  const targetElements = await page.$$("#all_roster>div>table>tbody>tr");
-  const roster = await Promise.all(
-    targetElements.map(async (targetElement) => {
-      const number = await getTextContent({
-        targetElement: targetElement,
-        selector: '[data-stat="number"]',
-      });
-      const player = await getTextContent({
-        targetElement: targetElement,
-        selector: '[data-stat="player"]',
-      });
-      const playerOuter = await getOuterHTML({
-        targetElement: targetElement,
-        selector: '[data-stat="player"]',
-      });
-      const playerPos = await getTextContent({
-        targetElement: targetElement,
-        selector: '[data-stat="pos"]',
-      });
-      const playerCountry = await getTextContent({
-        targetElement: targetElement,
-        selector: '[data-stat="birth_country"]',
-      });
-      const DOM = new JSDOM(playerOuter);
-      const hrefPlayer = DOM.window.document.querySelector("a");
-      const playerInfo = {
-        number,
-        player,
-        playerPos,
-        playerCountry,
-        hrefPlayer: hrefPlayer?.href,
-      };
-      return playerInfo;
-    })
+  const targetElement = await page.$eval(
+    "#all_roster>div>table",
+    (el) => el.outerHTML
   );
-
+  const tableDOM = new JSDOM(targetElement);
+  const { document: tableDocument } = tableDOM.window;
+  const rows = tableDocument.querySelectorAll("tbody>tr");
+  const roster = [...rows].map((row) => {
+    const number = row.querySelector('[data-stat="number"]')?.textContent;
+    const player = row.querySelector('[data-stat="player"]')?.textContent;
+    const playerRef = row.querySelector("a")?.href;
+    const playerPos = row.querySelector('[data-stat="pos"]')?.textContent;
+    const playerCountry = row.querySelector(
+      '[data-stat="birth_country"]'
+    )?.textContent;
+    const playerInfo = {
+      number,
+      player,
+      playerPos,
+      playerCountry,
+      playerRef,
+    };
+    return playerInfo;
+  });
   await browser.close();
   return roster;
 };
