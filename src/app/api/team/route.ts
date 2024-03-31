@@ -7,35 +7,6 @@ import { ElementHandle, EventEmitter, Page, PageEvents } from "puppeteer";
 
 const url = `https://www.basketball-reference.com/teams`;
 
-const getTextContent = async ({
-  targetElement,
-  selector,
-}: {
-  targetElement: ElementHandle<HTMLTableRowElement> | null;
-  selector: string;
-}): Promise<string | null | undefined> => {
-  const textContent = await targetElement?.$eval(
-    selector,
-    (el) => el.textContent
-  );
-
-  return textContent;
-};
-const getOuterHTML = async ({
-  targetElement,
-  selector,
-}: {
-  targetElement: ElementHandle<HTMLTableRowElement> | null;
-  selector: string;
-}): Promise<string | undefined> => {
-  const textContent = await targetElement?.$eval(
-    selector,
-    (el) => el.outerHTML
-  );
-
-  return textContent;
-};
-
 const Puppeteer = async ({ url }: { url: string }) => {
   puppeteer.use(Adblocker({ blockTrackers: true }));
   const browser = await puppeteer.launch({ headless: true });
