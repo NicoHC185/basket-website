@@ -9,19 +9,6 @@ import { IConference, ITeam } from "interfaces";
 
 const url = `https://www.basketball-reference.com/leagues/`;
 
-function checkCode(code?: string) {
-  switch (code) {
-    case "brk":
-      return "bkn";
-    case "cho":
-      return "cha";
-    case "pho":
-      return "phx";
-    default:
-      return code;
-  }
-}
-
 const getTeams = ({
   teamsHTML,
 }: {
@@ -40,7 +27,7 @@ const getTeams = ({
       name,
       victories,
       defeats,
-      code: checkCode(code),
+      code: code, //checkCode(code),
     };
   });
   return teams;
