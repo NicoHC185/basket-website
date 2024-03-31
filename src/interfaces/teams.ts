@@ -17,3 +17,10 @@ export interface IInfoPlayer {
   playerCountry: string | undefined | null;
   playerRef: string | undefined;
 }
+
+export interface IGameResult {
+  date: string;
+  teams: string[];
+  result: RegExpMatchArray | null;
+  score: string[];
+}

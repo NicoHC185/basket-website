@@ -61,3 +61,7 @@ export async function POST(request: Request) {
   const response = await Puppeteer({ url: `${url}/${codeTeam}/${year}.html` });
   return NextResponse.json(response);
 }
+
+export async function postGameResult(request: Request) {
+  console.log("A", request);
+}
