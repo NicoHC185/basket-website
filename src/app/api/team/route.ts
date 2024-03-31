@@ -51,7 +51,7 @@ const Puppeteer = async ({ url }: { url: string }) => {
     height: 1080,
   });
   await page.goto(url);
-  const roster = getRoster({ page: page });
+  const roster = await getRoster({ page: page });
   await browser.close();
   return roster;
 };
