@@ -9,6 +9,19 @@ import moment, { Moment } from "moment";
 import { IPartidos } from "./dto";
 import { findLogo } from "utils";
 
+export function checkCode(code?: string) {
+  switch (code) {
+    case "brk":
+      return "bkn";
+    case "cho":
+      return "cha";
+    case "pho":
+      return "phx";
+    default:
+      return code;
+  }
+}
+
 
 export default function PartidosNBA() {
 
@@ -58,6 +71,9 @@ export default function PartidosNBA() {
     return true
   }
 
+
+
+
   return (<MainCard title='Games'>
 
     <Grid container spacing={2}>
@@ -80,7 +96,6 @@ export default function PartidosNBA() {
               {partidos.map((row, idx) => (
                 <TableRow
                   key={idx}
-                // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell align="center">
                     <Stack justifyContent={'center'}>
@@ -115,7 +130,7 @@ export default function PartidosNBA() {
                   <TableCell align="center">
                     <Stack justifyContent={'center'}>
                       <div>
-                        {findLogo(String(row.teams.visitors.code).toLowerCase())}
+                        {findLogo(String(checkCode(row.teams.visitors.code)).toLowerCase())}
                       </div>
                       <Typography>
 
