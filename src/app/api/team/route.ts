@@ -4,7 +4,7 @@ import Adblocker from "puppeteer-extra-plugin-adblocker";
 import UserAgent from "user-agents";
 import { JSDOM } from "jsdom";
 import { ElementHandle, EventEmitter, Page, PageEvents } from "puppeteer";
-import { IInfoPlayer } from "interfaces";
+import { IInfoPlayer, IInfoTeam } from "interfaces";
 import { getElement } from "../utils";
 
 const url = `https://www.basketball-reference.com/teams`;
@@ -19,15 +19,15 @@ const getInfoPlayer = ({ row }: { row: Element }): IInfoPlayer => {
   )?.textContent;
   const infoPlayer: IInfoPlayer = {
     number,
-    player,
-    playerPos,
-    playerCountry,
-    playerRef,
+    name: player,
+    position: playerPos,
+    country: playerCountry,
+    href: playerRef,
   };
   return infoPlayer;
 };
 
-const getInfoTeam = async ({ page }: { page: Page }) => {
+const getInfoTeam = async ({ page }: { page: Page }): Promise<IInfoTeam> => {
   const teamDocument = await getElement(
     page,
     `[data-template="Partials/Teams/Summary"]`
@@ -38,16 +38,14 @@ const getInfoTeam = async ({ page }: { page: Page }) => {
       .replace(/[\n\t]+/g, "")
       .split(" ")
       .filter((el) => el !== "")
-      .join(" ")
-      .split(":");
+      .join(" ");
     return newText;
   });
-
-  const res = {
-    Name: name,
-    Record: info[0].slice(-1)[0],
-    Coach: info[1].slice(-1)[0],
-    Executive: info[2].slice(-1)[0],
+  const res: IInfoTeam = {
+    name: name,
+    record: info.find((el) => /Record/.test(el))?.split(":")[1] || "",
+    coach: info.find((el) => /Coach/.test(el))?.split(":")[1] || "",
+    executive: info.find((el) => /Executive/.test(el))?.split(":")[1] || "",
   };
 
   return res;

@@ -19,10 +19,10 @@ const getInfoPlayer = ({ row }: { row: Element }): IInfoPlayer => {
   )?.textContent;
   const infoPlayer: IInfoPlayer = {
     number,
-    player,
-    playerPos,
-    playerCountry,
-    playerRef,
+    name: player,
+    position: playerPos,
+    country: playerCountry,
+    href: playerRef,
   };
   return infoPlayer;
 };
