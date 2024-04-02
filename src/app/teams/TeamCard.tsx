@@ -18,14 +18,17 @@ const PaperResult = ({ team, field }: { team: ITeam, field: 'victories' | 'defea
 const TeamCard = ({ team }: { team: ITeam }) => {
 
   return (
-    <Link href={`/teams/${team.code}`} underline="none">
+    <Link href={`/teams/${team.code}`} underline="none" sx={{
+      minHeight: '239.350px'
+    }}>
       <Card sx={{
         ':hover': {
           boxShadow: 20, // theme.shadows[20]
         },
+        maxWidth: '184px',
       }}>
-        <CardHeader title={team.name} sx={{ textAlign: 'center' }}></CardHeader>
-        <CardContent>
+        <CardHeader title={team.name} sx={{ textAlign: 'center', minHeight: `${37.350 + 32}px`, pb: 0 }}></CardHeader>
+        <CardContent sx={{ pt: 0 }}>
           <Stack justifyContent={'center'} alignItems={'center'}>
             {findLogo(String(team.code))}
             <div style={{

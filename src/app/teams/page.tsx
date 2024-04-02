@@ -1,18 +1,19 @@
 'use client'
-import { Grid, Stack, Typography } from '@mui/material'
+import { Grid, Skeleton, Stack, Typography } from '@mui/material'
 import axios from 'axios'
 import MainCard from 'components/cards/MainCard'
 import Logos from 'icons'
 import { IConference } from 'interfaces'
 import { useEffect, useState } from 'react'
 import { findLogo } from 'utils'
-import TeamCard from './Team'
+import TeamCard from './TeamCard'
 
 const url = 'http://localhost:3000/api'
 
 const Teams = () => {
 
   const [conferences, setConferences] = useState<IConference[]>([])
+  const [loadTeams, setLoadTeams] = useState(true)
 
   useEffect(() => {
     getTeams()
@@ -27,19 +28,22 @@ const Teams = () => {
   }
 
   const handleGetTeam = async () => {
+    setLoadTeams(true)
     const { data } = await axios.get(`${url}/teams`)
     setConferences(data)
+    setLoadTeams(false)
   }
 
 
 
   return (
     <MainCard title="Teams">
-      {
+      {loadTeams ?
+        <Skeleton variant="rounded" width={'100%'} height={'60vh'} /> :
         conferences.map((conference, idx) => (
-          <Stack spacing={2} sx={{ py: 2 }} key={idx}>
-            <Typography variant='h4'>{conference.name}</Typography>
-            <Grid container spacing={2}>
+          <Stack key={idx} alignItems={'flex-start'} sx={{ mb: '24px' }}>
+            <Typography variant='h4' sx={{ my: '24px' }}>{conference.name}</Typography>
+            <Grid container spacing={'12px'}>
               {
                 conference.teams.map(team =>
                   <Grid item key={team.code}>
