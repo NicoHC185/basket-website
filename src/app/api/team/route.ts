@@ -4,8 +4,8 @@ import Adblocker from "puppeteer-extra-plugin-adblocker";
 import UserAgent from "user-agents";
 import { JSDOM } from "jsdom";
 import { ElementHandle, EventEmitter, Page, PageEvents } from "puppeteer";
-import { IGameResult, IInfoPlayer } from "interfaces";
-import { getElement } from "app/api/utils";
+import { IInfoPlayer } from "interfaces";
+import { getElement } from "../utils";
 
 const url = `https://www.basketball-reference.com/teams`;
 
@@ -27,36 +27,30 @@ const getInfoPlayer = ({ row }: { row: Element }): IInfoPlayer => {
   return infoPlayer;
 };
 
-const getGameResult = async ({
-  page,
-}: {
-  page: Page;
-}): Promise<IGameResult[]> => {
-  const document = await getElement(page, `#timeline_results`);
-  const result = [...document.querySelectorAll("ul>li")]
-    .filter((el) => el.className === "result")
-    .map((el) => {
-      const textSplit = String(el.textContent).split(",");
-      const dateSplit = textSplit[0]
-        .replace(/(\r\n|\n|\r)/gm, "")
-        .split(".")[1]
-        .split(" ");
-      const teamsSplit = textSplit[1].split(" ");
-      const date = `${dateSplit[1]} ${dateSplit[2]}`;
-      const teams = [teamsSplit[1], teamsSplit.slice(-1)[0]];
-      const result = teamsSplit[2].match(/\d+/g);
-      const score = String(textSplit[2])
-        .replace(/(\r\n|\n|\r)/gm, "")
-        .split(" ")[1]
-        .split("-");
-      return {
-        date,
-        teams,
-        result,
-        score,
-      };
-    });
-  return result;
+const getInfoTeam = async ({ page }: { page: Page }) => {
+  const teamDocument = await getElement(
+    page,
+    `[data-template="Partials/Teams/Summary"]`
+  );
+  const name = teamDocument.querySelectorAll("h1>span")[1].textContent;
+  const info = [...teamDocument.querySelectorAll("p")].map((el) => {
+    const newText = String(el.textContent)
+      .replace(/[\n\t]+/g, "")
+      .split(" ")
+      .filter((el) => el !== "")
+      .join(" ")
+      .split(":");
+    return newText;
+  });
+
+  const res = {
+    Name: name,
+    Record: info[0].slice(-1)[0],
+    Coach: info[1].slice(-1)[0],
+    Executive: info[2].slice(-1)[0],
+  };
+
+  return res;
 };
 
 const Puppeteer = async ({ url }: { url: string }) => {
@@ -70,13 +64,17 @@ const Puppeteer = async ({ url }: { url: string }) => {
     height: 1080,
   });
   await page.goto(url);
-  const result = await getGameResult({ page: page });
+  const infoTeam = await getInfoTeam({ page: page });
   await browser.close();
-  return result;
+  return infoTeam;
 };
 
 export async function POST(request: Request) {
   const { codeTeam, year } = await request.json();
   const response = await Puppeteer({ url: `${url}/${codeTeam}/${year}.html` });
   return NextResponse.json(response);
+}
+
+export async function postGameResult(request: Request) {
+  console.log("A", request);
 }

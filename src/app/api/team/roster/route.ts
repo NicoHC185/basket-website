@@ -5,6 +5,7 @@ import UserAgent from "user-agents";
 import { JSDOM } from "jsdom";
 import { ElementHandle, EventEmitter, Page, PageEvents } from "puppeteer";
 import { IInfoPlayer } from "interfaces";
+import { getElement } from "app/api/utils";
 
 const url = `https://www.basketball-reference.com/teams`;
 
@@ -27,12 +28,7 @@ const getInfoPlayer = ({ row }: { row: Element }): IInfoPlayer => {
 };
 
 const getRoster = async ({ page }: { page: Page }): Promise<IInfoPlayer[]> => {
-  const tableElement = await page.$eval(
-    "#all_roster>div>table",
-    (el) => el.outerHTML
-  );
-  const tableDOM = new JSDOM(tableElement);
-  const { document: tableDocument } = tableDOM.window;
+  const tableDocument = await getElement(page, `#all_roster>div>table`);
   const rows = tableDocument.querySelectorAll("tbody>tr");
   const roster: IInfoPlayer[] = [...rows].map((row) => {
     return getInfoPlayer({ row });
@@ -60,8 +56,4 @@ export async function POST(request: Request) {
   const { codeTeam, year } = await request.json();
   const response = await Puppeteer({ url: `${url}/${codeTeam}/${year}.html` });
   return NextResponse.json(response);
-}
-
-export async function postGameResult(request: Request) {
-  console.log("A", request);
 }
