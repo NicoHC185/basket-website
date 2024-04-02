@@ -12,10 +12,10 @@ export interface IConference {
 
 export interface IInfoPlayer {
   number: string | undefined | null;
-  player: string | undefined | null;
-  playerPos: string | undefined | null;
-  playerCountry: string | undefined | null;
-  playerRef: string | undefined;
+  name: string | undefined | null;
+  position: string | undefined | null;
+  country: string | undefined | null;
+  href: string | undefined;
 }
 
 export interface IGameResult {
@@ -23,4 +23,11 @@ export interface IGameResult {
   teams: string[];
   result: RegExpMatchArray | null;
   score: string[];
+}
+
+export interface IInfoTeam {
+  name: string | null;
+  coach: string;
+  executive: string;
+  record: string;
 }
