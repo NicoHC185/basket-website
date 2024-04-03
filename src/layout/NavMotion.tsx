@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
+import { ReactElement } from 'react';
 
 // ==============================|| ANIMATION FOR CONTENT ||============================== //
 
-const NavMotion = ({ children }) => {
+const NavMotion = ({ children }: { children: ReactElement }) => {
   const motionVariants = {
     initial: {
       opacity: 0,

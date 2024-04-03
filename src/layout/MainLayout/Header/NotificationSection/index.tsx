@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, ChangeEvent } from 'react';
 // import { Link } from 'react-router-dom';
 import Link from 'next/link';
 
@@ -64,7 +64,7 @@ const NotificationSection = () => {
   /**
    * anchorRef is used on different componets and specifying one type leads to other components throwing an error
    * */
-  const anchorRef = useRef(null);
+  const anchorRef = useRef<HTMLInputElement>(null);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -80,12 +80,12 @@ const NotificationSection = () => {
   const prevOpen = useRef(open);
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
+      anchorRef?.current?.focus();
     }
     prevOpen.current = open;
   }, [open]);
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event?.target.value) setValue(event?.target.value);
   };
 
@@ -104,8 +104,6 @@ const NotificationSection = () => {
           <Avatar
             variant="rounded"
             sx={{
-              ...theme.typography.commonAvatar,
-              ...theme.typography.mediumAvatar,
               transition: 'all .2s ease-in-out',
               background: theme.palette.secondary.light,
               color: theme.palette.secondary.dark,
@@ -162,11 +160,6 @@ const NotificationSection = () => {
                               }}
                             />
                           </Stack>
-                        </Grid>
-                        <Grid item>
-                          <Typography component={Link} to="#" variant="subtitle2" color="primary">
-                            Mark as all read
-                          </Typography>
                         </Grid>
                       </Grid>
                     </Grid>

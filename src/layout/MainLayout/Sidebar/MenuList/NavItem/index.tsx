@@ -17,7 +17,8 @@ import { MENU_OPEN, SET_MENU } from 'store/actions';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { useParams, usePathname } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import Link from 'next/link';
+// import Link from 'next/link';
+import { Link } from '@mui/material'
 import { INavItem } from 'interfaces';
 import colors from "@public/assets/scss/_themes-vars.module.scss";
 
@@ -67,7 +68,7 @@ const NavItem = ({ item, level }: {
 
   let listItemProps: {
     component?: any,
-    href?: any,
+    href?: string,
     target?: any
   } = {
     component: forwardRef(function LinkComponent(props, ref) {

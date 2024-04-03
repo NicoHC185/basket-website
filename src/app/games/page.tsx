@@ -9,16 +9,16 @@ import moment, { Moment } from "moment";
 import { IPartidos } from "./dto";
 import { findLogo } from "utils";
 
-export function checkCode(code?: string) {
+function checkCode(code: string): string {
   switch (code) {
-    case "brk":
-      return "bkn";
-    case "cho":
-      return "cha";
-    case "pho":
-      return "phx";
+    case "bkn":
+      return "brk";
+    case "cha":
+      return "cho";
+    case "phx":
+      return "pho";
     default:
-      return code;
+      return code || "";
   }
 }
 
@@ -100,7 +100,7 @@ export default function PartidosNBA() {
                   <TableCell align="center">
                     <Stack justifyContent={'center'}>
                       <div>
-                        {findLogo(String(row.teams.home.code).toLowerCase())}
+                        {findLogo(checkCode(row.teams.home.code.toLowerCase()))}
                       </div>
                       <Typography>
 
@@ -130,7 +130,7 @@ export default function PartidosNBA() {
                   <TableCell align="center">
                     <Stack justifyContent={'center'}>
                       <div>
-                        {findLogo(String(checkCode(row.teams.visitors.code)).toLowerCase())}
+                        {findLogo(checkCode(row.teams.visitors.code).toLowerCase())}
                       </div>
                       <Typography>
 
