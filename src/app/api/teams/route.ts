@@ -27,7 +27,7 @@ const getTeams = ({
       name,
       victories,
       defeats,
-      code: code, //checkCode(code),
+      code: code,
     };
   });
   return teams;
