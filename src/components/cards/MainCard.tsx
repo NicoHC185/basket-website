@@ -31,7 +31,7 @@ const MainCard = forwardRef(
     }: {
       border?: Boolean,
       boxShadow?: Boolean,
-      children?: ReactElement,
+      children?: string | JSX.Element | JSX.Element[],
       content?: Boolean,
       contentClass?: string,
       contentSX?: object,
