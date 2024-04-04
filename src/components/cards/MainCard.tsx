@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ReactNode, forwardRef, useEffect, useMemo } from 'react';
+import { ReactElement, ReactNode, forwardRef, useEffect, useMemo } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -29,13 +29,13 @@ const MainCard = forwardRef(
       elevation,
       ...others
     }: {
-      border?: boolean,
-      boxShadow?: boolean,
-      children?: any,
-      content?: boolean,
+      border?: Boolean,
+      boxShadow?: Boolean,
+      children?: ReactElement,
+      content?: Boolean,
       contentClass?: string,
       contentSX?: object,
-      darkTitle?: boolean,
+      darkTitle?: Boolean,
       secondary?: ReactNode | string | object,
       shadow?: string,
       sx?: object,
@@ -74,19 +74,5 @@ const MainCard = forwardRef(
     );
   }
 );
-
-MainCard.propTypes = {
-  border: PropTypes.bool,
-  boxShadow: PropTypes.bool,
-  children: PropTypes.node,
-  content: PropTypes.bool,
-  contentClass: PropTypes.string,
-  contentSX: PropTypes.object,
-  darkTitle: PropTypes.bool,
-  secondary: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
-  shadow: PropTypes.string,
-  sx: PropTypes.object,
-  title: PropTypes.oneOfType([PropTypes.node, PropTypes.string])
-};
 
 export default MainCard;

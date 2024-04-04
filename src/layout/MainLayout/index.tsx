@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import { AppBar, Box, CssBaseline, Toolbar, useMediaQuery } from '@mui/material';
@@ -18,38 +17,52 @@ import { IconChevronRight } from '@tabler/icons-react';
 import { useAppSelector } from 'hooks';
 
 // styles
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }: { theme: any, open: boolean }) => ({
-  ...theme.typography.mainContent,
-  borderBottomLeftRadius: 0,
-  borderBottomRightRadius: 0,
-  transition: theme.transitions.create(
-    'margin',
-    open
-      ? {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.leavingScreen
-      }
-      : {
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+  ({ theme, open }: { theme: any, open: boolean }) => ({
+    backgroundColor: theme.palette.background.default,
+    ...theme.typography.mainContent,
+    ...(!open && {
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0,
+      transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.standar
-      }
-  ),
-  [theme.breakpoints.up('md')]: {
-    marginLeft: open ? 0 : -(drawerWidth - 75),
-    width: `calc(100% - ${open ? drawerWidth : minDrawerWidth}px)`
-  },
-  [theme.breakpoints.down('md')]: {
-    marginLeft: '20px',
-    width: `calc(100% - ${open ? drawerWidth : minDrawerWidth}px)`,
-    padding: '16px'
-  },
-  [theme.breakpoints.down('sm')]: {
-    marginLeft: '10px',
-    width: `calc(100% - ${open ? drawerWidth : minDrawerWidth}px)`,
-    padding: '16px',
-    marginRight: '10px'
-  }
-}));
+        duration: theme.transitions.duration.shorter,
+      }),
+      [theme.breakpoints.up("md")]: {
+        marginLeft: -(drawerWidth - 72),
+        width: `calc(100% - ${drawerWidth}px)`,
+      },
+      [theme.breakpoints.down("md")]: {
+        marginLeft: "20px",
+        width: `calc(100% - ${drawerWidth}px)`,
+        padding: "16px",
+      },
+      [theme.breakpoints.down("sm")]: {
+        marginLeft: "10px",
+        width: `calc(100% - ${drawerWidth}px)`,
+        padding: "16px",
+        marginRight: "10px",
+      },
+    }),
+    ...(open && {
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.shorter,
+      }),
+      marginLeft: 0,
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0,
+      width: `calc(100% - ${drawerWidth}px)`,
+      [theme.breakpoints.down("md")]: {
+        marginLeft: "20px",
+      },
+      [theme.breakpoints.down("sm")]: {
+        marginLeft: "10px",
+      },
+    }),
+  })
+);
+
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
@@ -58,6 +71,7 @@ const MainLayout = ({ children }: { children: any }) => {
   const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
   // Handle left drawer
   const leftDrawerOpened = useAppSelector((state: any) => state.customizationReducer?.opened);
+  // const { drawerType, container, layout } = useConfig();
   const dispatch = useDispatch();
   const handleLeftDrawerToggle = () => {
     dispatch({ type: SET_MENU, opened: !leftDrawerOpened });
@@ -93,12 +107,35 @@ const MainLayout = ({ children }: { children: any }) => {
       <Main
         theme={theme}
         open={leftDrawerOpened}
-        sx={{ width: "100%", backgroundColor: theme.palette.background.default }}
+      // sx={{ ml: !drawerOpen && "-188px !important" }}
       >
         {/* breadcrumb */}
-        <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
-        {children}
+        {/* {container && (
+          <Container maxWidth="lg">
+            <Breadcrumbs
+              separator={IconChevronRight}
+              navigation={navigation}
+              icon
+              title
+              rightAlign
+            />
+            {children}
+          </Container>
+        )}
+        {!container && (
+        )} */}
+        <>
+          <Breadcrumbs
+            separator={IconChevronRight}
+            navigation={navigation}
+            icon
+            title
+            rightAlign
+          />
+          {children}
+        </>
       </Main>
+
       {/* <Customization /> */}
     </Box>
   );

@@ -13,7 +13,7 @@ import '@public/assets/scss/style.scss';
 import { styled } from '@mui/material/styles';
 
 const ProvideWapped: FC<IChildrenProps> = ({ children }) => {
-  const custom = useSelector((state: any) => state.customizationReducer)
+  const custom = useAppSelector((state: any) => state.customizationReducer)
 
   return <StyledEngineProvider injectFirst>
     <ThemeProvider theme={themes(custom)}>

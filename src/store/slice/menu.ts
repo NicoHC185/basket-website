@@ -4,11 +4,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface CounterState {
   value?: number;
   open: boolean;
+  drawerOpen: boolean;
 }
 
 // Define the initial state using that type
 const initialState: CounterState = {
   open: false,
+  drawerOpen: false,
 };
 
 export const menu = createSlice({
@@ -19,9 +21,13 @@ export const menu = createSlice({
     setMenuEnabled: (state) => {
       state.open = !state.open;
     },
+
+    openDrawer(state, action) {
+      state.drawerOpen = action.payload;
+    },
   },
 });
 
-export const { setMenuEnabled } = menu.actions;
+export const { setMenuEnabled, openDrawer } = menu.actions;
 
 export default menu.reducer;
