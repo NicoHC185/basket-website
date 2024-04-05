@@ -4,12 +4,20 @@ import config from "config";
 // action - state management
 import * as actionTypes from "./actions";
 
-export const initialState = {
+interface CounterState {
+  isOpen: any;
+  defaultId: string;
+  fontFamily: string;
+  borderRadius: number;
+  opened: boolean;
+}
+
+export const initialState: CounterState = {
   isOpen: [], // for active default menu
   defaultId: "default",
   fontFamily: config.fontFamily,
   borderRadius: config.borderRadius,
-  opened: false,
+  opened: true,
 };
 
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
