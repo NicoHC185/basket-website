@@ -10,10 +10,12 @@ import themePalette from "./palette";
 import themeTypography from "./typography";
 import componentStyleOverrides from "./compStyleOverride";
 
-/**
- * Represent theme style and structure as per Material-UI
- * @param {JsonObject} customization customization parameter object
- */
+declare module "@mui/material/styles" {
+  interface PaletteColor {
+    color200: string;
+    color800: string;
+  }
+}
 
 export const theme = (customization: any) => {
   const color = colors;

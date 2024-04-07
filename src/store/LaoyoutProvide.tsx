@@ -1,7 +1,9 @@
 'use client'
 
 import { Provider, useSelector } from 'react-redux';
-import { CssBaseline, StyledEngineProvider, ThemeProvider } from "@mui/material";
+import { CssBaseline } from "@mui/material";
+import StyledEngineProvider from '@mui/material/StyledEngineProvider';
+import { ThemeProvider } from '@mui/material/styles'
 import NavigationScroll from 'layout/NavigationScroll';
 import { useAppSelector } from 'hooks';
 import { FC, ReactNode, useEffect } from 'react';

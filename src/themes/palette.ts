@@ -1,9 +1,12 @@
-// 'use client'
-/**
- * Color intention that you want to used in your theme
- * @param {JsonObject} theme Theme customization object
- */
-import { brown, yellow } from "@mui/material/colors";
+declare module "@mui/material/styles" {
+  interface Palette {
+    color800: Palette["primary"];
+  }
+
+  interface PaletteOptions {
+    color800?: PaletteOptions["primary"];
+  }
+}
 
 export interface ITheme {
   customization: any;
