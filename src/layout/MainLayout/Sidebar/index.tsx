@@ -25,7 +25,7 @@ import { useAppSelector } from 'hooks';
 const Sidebar = ({ drawerOpen, drawerToggle, window }: { drawerOpen: boolean, drawerToggle: () => void, window?: { document: { body: any } } }) => {
   const theme = useTheme();
   const { borderRadius } = useAppSelector(state => state.customizationReducer)
-  const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
+  const matchUpMd = useMediaQuery(theme.breakpoints.down('md'));
   const drawer = (
     <>
       <Box sx={{
@@ -40,7 +40,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }: { drawerOpen: boolean, dr
       <PerfectScrollbar
         component="div"
         style={{
-          height: !matchUpMd ? 'calc(100vh - 56px)' : 'calc(100vh - 88px)',
+          height: matchUpMd ? 'calc(100vh - 56px)' : 'calc(100vh - 88px)',
           paddingLeft: '16px',
           paddingRight: '16px',
         }}
@@ -59,7 +59,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }: { drawerOpen: boolean, dr
   return (
     <Box component="nav" sx={{
       flexShrink: { md: 0 },
-      width: matchUpMd ? drawerWidth : 'auto',
+      width: matchUpMd ? 'auto' : drawerWidth,
       backgroundColor: theme.palette.background.default,
     }}
       aria-label="mailbox folders">
