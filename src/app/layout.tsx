@@ -19,12 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppRouterCacheProvider>
-          <LayoutProvider>
-            {children}
-          </LayoutProvider>
+        {/* <LayoutProvider>
+        </LayoutProvider> */}
+        {children}
+        {/* <AppRouterCacheProvider>
 
-        </AppRouterCacheProvider>
+        </AppRouterCacheProvider> */}
       </body>
     </html>
   )

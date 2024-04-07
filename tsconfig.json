@@ -22,8 +22,7 @@
     ],
     "paths": {
       "*": ["./src/*"],
-      "@public/*": ["./public/*"],
-      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
+      "@public/*": ["./public/*"]
     },
     "noImplicitAny": true,
     "noImplicitThis": true,
