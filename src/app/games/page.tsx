@@ -37,7 +37,7 @@ export default function PartidosNBA() {
     axios.get(`https://v2.nba.api-sports.io/games?date=${date}`,
       {
         headers: {
-          "x-apisports-key": "21da75a459f080737603a3201ed26cab"
+          "x-apisports-key": process.env.NEXT_PUBLIC_API_SPORTS
         }
       }
     ).then(({ data }) => {
