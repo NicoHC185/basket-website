@@ -43,11 +43,11 @@ const Teams = () => {
         conferences.map((conference, idx) => (
           <Stack key={idx} alignItems={'flex-start'} sx={{ mb: '24px' }}>
             <Typography variant='h4' sx={{ my: '24px' }}>{conference.name}</Typography>
-            <Grid container spacing={'12px'}>
+            <Grid container spacing={'12px'} width={'100%'} justifyContent={'flex-start'} alignItems={'center'}>
               {
-                conference.teams.map(team =>
-                  <Grid item key={team.code}>
-                    <TeamCard team={team}></TeamCard>
+                conference.teams.map((team, idx) =>
+                  <Grid item key={team.code} xs={2}>
+                    <TeamCard team={team} position={idx + 1}></TeamCard>
                   </Grid>
                 )
               }

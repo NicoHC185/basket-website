@@ -1,9 +1,7 @@
-import { Card, CardContent, CardHeader, Link, Paper, Stack, styled, useTheme } from "@mui/material"
+import { Card, CardContent, CardHeader, Link, Paper, Stack, styled, Typography, useTheme } from "@mui/material"
 import { ITeam } from "interfaces"
-import { useEffect, useMemo } from "react"
+import { useMemo } from "react"
 import { findLogo } from "utils"
-import colors from '@public/assets/scss/_themes-vars.module.scss';
-// import Link from "next/link";
 
 const PaperResult = ({ team, field }: { team: ITeam, field: 'victories' | 'defeats' }) => {
   const theme = useTheme()
@@ -15,11 +13,23 @@ const PaperResult = ({ team, field }: { team: ITeam, field: 'victories' | 'defea
   >{team[field]}</Paper>
 }
 
-const TeamCard = ({ team }: { team: ITeam }) => {
+const getPosition = (position: number) => {
+  if (position > 6 && position <= 10) {
+    return 'In PlayIn'
+  }
+  if (position <= 6) {
+    return 'In PlayOff'
+  }
+  return ''
+}
+
+const TeamCard = ({ team, position }: { team: ITeam, position: number }) => {
 
   return (
     <Link href={`/teams/${team.code}`} underline="none" sx={{
-      minHeight: '239.350px'
+      // minHeight: '239.350px',
+      display: 'flex',
+      justifyContent: 'center'
     }}>
       <Card sx={{
         ':hover': {
@@ -27,7 +37,16 @@ const TeamCard = ({ team }: { team: ITeam }) => {
         },
         maxWidth: '184px',
       }}>
-        <CardHeader title={team.name} sx={{ textAlign: 'center', minHeight: `${37.350 + 32}px`, pb: 0 }}></CardHeader>
+        <CardHeader title={
+          <Stack>
+            <Typography>
+              {team.name}
+            </Typography>
+            <Typography>
+              {getPosition(position)}
+            </Typography>
+          </Stack>
+        } sx={{ textAlign: 'center', minHeight: `${37.350 + 32}px`, pb: 0 }}></CardHeader>
         <CardContent sx={{ pt: 0 }}>
           <Stack justifyContent={'center'} alignItems={'center'}>
             {findLogo(String(team.code))}

@@ -21,8 +21,8 @@ const getTeams = ({
     const textContentSplit =
       el?.textContent?.replace("F$", "").replace(regex, "-").split("-") || [];
     const name = textContentSplit[0];
-    const victories = textContentSplit[1];
-    const defeats = textContentSplit[2];
+    const victories = Number(textContentSplit[1]) || 0;
+    const defeats = Number(textContentSplit[2]) || 0;
     return {
       name,
       victories,
@@ -36,7 +36,9 @@ const getTeams = ({
 const getConferences = (el: Document): IConference => {
   const name = el.querySelector("h4")?.textContent;
   const teamsElements = el.querySelectorAll("table>tbody>tr");
-  const teams: ITeam[] = getTeams({ teamsHTML: teamsElements });
+  const teams: ITeam[] = getTeams({ teamsHTML: teamsElements }).sort((a, b) =>
+    a.victories < b.victories ? 1 : -1
+  );
   return {
     name,
     teams,

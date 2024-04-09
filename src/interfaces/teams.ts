@@ -1,7 +1,7 @@
 export interface ITeam {
   name: string | undefined;
-  victories: string | undefined;
-  defeats: string | undefined;
+  victories: number;
+  defeats: number;
   code: string | undefined;
 }
 

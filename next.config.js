@@ -24,6 +24,9 @@ const nextConfig = {
       "puppeteer-extra-plugin-adblocker",
     ],
   },
+  compiler: {
+    styledComponents: true,
+  },
 };
 
 module.exports = nextConfig;
