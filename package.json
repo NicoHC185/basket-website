@@ -51,5 +51,12 @@
     "eslint-config-next": "14.0.3",
     "typescript": "^5.4.3",
     "typescript-eslint": "^7.4.0"
+  },
+  "reactSnap": {
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ],
+    "puppeteerExecutablePath": "/opt/google/chrome/google-chrome"
   }
 }
