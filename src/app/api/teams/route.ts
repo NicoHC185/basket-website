@@ -47,7 +47,7 @@ const getConferences = (el: Document): IConference => {
 
 const Puppeteer: () => Promise<IConference[]> = async () => {
   puppeteer.use(Adblocker({ blockTrackers: true }));
-  const browser = await puppeteer.launch({ headless: true, args: [`--disable-gpu`, `--disable-setuid-sandbox`, `--no-sandbox`, `--no-zygote`], });
+  const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   const userAgent = new UserAgent();
   await page.setUserAgent(userAgent.toString());
