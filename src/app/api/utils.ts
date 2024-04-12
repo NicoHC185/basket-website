@@ -16,7 +16,7 @@ export const getElement = async (
 export const initialBrowser = async () => {
   puppeteer.use(Adblocker({ blockTrackers: true }));
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: ["--no-sandbox"],
   });
   return browser;
