@@ -8,8 +8,6 @@ import { useEffect, useState } from 'react'
 import { findLogo } from 'utils'
 import TeamCard from './TeamCard'
 
-const url = 'http://localhost:3000/api'
-
 const Teams = () => {
 
   const [conferences, setConferences] = useState<IConference[]>([])
@@ -29,7 +27,7 @@ const Teams = () => {
 
   const handleGetTeam = async () => {
     setLoadTeams(true)
-    const { data } = await axios.get(`${url}/teams`)
+    const { data } = await axios.get(`/api/teams`)
     setConferences(data)
     setLoadTeams(false)
   }
@@ -40,7 +38,7 @@ const Teams = () => {
     <MainCard title="Teams">
       {loadTeams ?
         <Skeleton variant="rounded" width={'100%'} height={'60vh'} /> :
-        conferences.map((conference, idx) => (
+        conferences?.map((conference, idx) => (
           <Stack key={idx} alignItems={'flex-start'} sx={{ mb: '24px' }}>
             <Typography variant='h4' sx={{ my: '24px' }}>{conference.name}</Typography>
             <Grid container spacing={'12px'} width={'100%'} justifyContent={'flex-start'} alignItems={'center'}>
