@@ -5,7 +5,7 @@ import UserAgent from "user-agents";
 import { JSDOM } from "jsdom";
 import { ElementHandle, EventEmitter, Page, PageEvents } from "puppeteer";
 import { IInfoPlayer, IInfoTeam } from "interfaces";
-import { getElement } from "../utils";
+import { getElement, initialBrowser } from "../utils";
 
 const url = `https://www.basketball-reference.com/teams`;
 
@@ -52,8 +52,7 @@ const getInfoTeam = async ({ page }: { page: Page }): Promise<IInfoTeam> => {
 };
 
 const Puppeteer = async ({ url }: { url: string }) => {
-  puppeteer.use(Adblocker({ blockTrackers: true }));
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await initialBrowser();
   const page = await browser.newPage();
   const userAgent = new UserAgent();
   await page.setUserAgent(userAgent.toString());

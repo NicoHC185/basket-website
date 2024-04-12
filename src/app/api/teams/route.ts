@@ -6,6 +6,7 @@ import UserAgent from "user-agents";
 import { JSDOM } from "jsdom";
 import { setTimeout } from "timers/promises";
 import { IConference, ITeam } from "interfaces";
+import { closeBrowser, initialBrowser } from "../utils";
 
 const url = `https://www.basketball-reference.com/leagues/`;
 
@@ -46,8 +47,9 @@ const getConferences = (el: Document): IConference => {
 };
 
 const Puppeteer: () => Promise<IConference[]> = async () => {
-  puppeteer.use(Adblocker({ blockTrackers: true }));
-  const browser = await puppeteer.launch({ headless: false });
+  // puppeteer.use(Adblocker({ blockTrackers: true }));
+  // const browser = await puppeteer.launch({ headless: false });
+  const browser = await initialBrowser();
   const page = await browser.newPage();
   const userAgent = new UserAgent();
   await page.setUserAgent(userAgent.toString());
@@ -66,8 +68,7 @@ const Puppeteer: () => Promise<IConference[]> = async () => {
     const DOM = new JSDOM(el);
     return getConferences(DOM.window.document);
   });
-
-  await browser.close();
+  closeBrowser({ browser });
   return res;
 };
 
