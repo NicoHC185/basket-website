@@ -17,19 +17,8 @@ import { MENU_OPEN, SET_MENU } from 'store/actions';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { useParams, usePathname } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import Link from 'next/link';
-// import { Link } from '@mui/material'
+import { Link } from '@mui/material'
 import { INavItem } from 'interfaces';
-import colors from "@public/assets/scss/_themes-vars.module.scss";
-
-const ListItemButtonCustom = styled(ListItemButton)({
-  // "&:hover": {
-  //   backgroundColor: colors.primary200,
-  // },
-  // '&.Mui-selected': {
-  //   backgroundColor: 'red',
-  // },
-}) as typeof ListItemButton;
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
@@ -97,7 +86,7 @@ const NavItem = ({ item, level }: {
   }, [pathname]);
 
   return (
-    <ListItemButtonCustom
+    <ListItemButton
       {...listItemProps}
       disabled={item.disabled}
       sx={{
@@ -134,7 +123,7 @@ const NavItem = ({ item, level }: {
           avatar={item.chip.avatar && <Avatar>{item.chip.avatar}</Avatar>}
         />
       )}
-    </ListItemButtonCustom>
+    </ListItemButton>
   );
 };
 

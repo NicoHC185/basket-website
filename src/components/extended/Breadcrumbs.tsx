@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import { Component, FC, ReactNode, useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
-import Link from 'next/link';
-
+import { Link } from '@mui/material';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Box, Card, Divider, Grid, Typography } from '@mui/material';
@@ -101,7 +99,7 @@ const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAl
   // const separatorIcon = separator ? <SeparatorIcon stroke={1.5} size="1rem" /> : <IconTallymark1 stroke={1.5} size="1rem" />;
   const separatorIcon = separator ? separator : <IconTallymark1 stroke={1.5} size="1rem" />;
 
-  let mainContent;
+  let mainContent: any;
   let itemContent;
   let breadcrumbContent = <Typography />;
   let itemTitle = '';
