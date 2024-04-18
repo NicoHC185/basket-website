@@ -1,6 +1,5 @@
 'use client'
 
-import PropTypes from 'prop-types';
 import { FC, useEffect } from 'react';
 import { usePathname } from 'next/navigation'
 import { IChildrenProps } from 'interfaces';

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box, Chip, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, useMediaQuery } from '@mui/material';
+import { Box, Drawer, useMediaQuery } from '@mui/material';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -13,16 +13,13 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 // project imports
 import MenuList from './MenuList';
 import LogoSection from '../LogoSection';
-import MenuCard from './MenuCard';
 import { drawerWidth, minDrawerWidth } from 'store/constant';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { useEffect } from 'react';
 import { useAppSelector } from 'hooks';
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
-const Sidebar = ({ drawerOpen, drawerToggle, window }: { drawerOpen: boolean, drawerToggle: () => void, window?: { document: { body: any } } }) => {
+const Sidebar = ({ drawerOpen }: { drawerOpen: boolean }) => {
   const theme = useTheme();
   const { borderRadius } = useAppSelector(state => state.customizationReducer)
   const matchUpMd = useMediaQuery(theme.breakpoints.down('md'));
@@ -50,7 +47,6 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }: { drawerOpen: boolean, dr
     </>
   );
 
-  const container = window !== undefined ? () => window.document.body : undefined;
 
   useEffect(() => {
     console.log('matchUpMd', matchUpMd);

@@ -1,32 +1,10 @@
 import { NextResponse } from "next/server";
-import puppeteer from "puppeteer-extra";
-import Adblocker from "puppeteer-extra-plugin-adblocker";
 import UserAgent from "user-agents";
-import { JSDOM } from "jsdom";
-import { ElementHandle, EventEmitter, Page, PageEvents } from "puppeteer";
-import { IInfoPlayer, IInfoTeam } from "interfaces";
+import { Page } from "puppeteer";
+import { IInfoTeam } from "interfaces";
 import { getElement, initialBrowser } from "../utils";
 
 const url = `https://www.basketball-reference.com/teams`;
-
-const getInfoPlayer = ({ row }: { row: Element }): IInfoPlayer => {
-  const number = row.querySelector('[data-stat="number"]')?.textContent;
-  const player = row.querySelector('[data-stat="player"]')?.textContent;
-  const playerRef = row.querySelector("a")?.href;
-  const playerPos = row.querySelector('[data-stat="pos"]')?.textContent;
-  const playerCountry = row.querySelector(
-    '[data-stat="birth_country"]'
-  )?.textContent;
-  const infoPlayer: IInfoPlayer = {
-    number,
-    name: player,
-    position: playerPos,
-    country: playerCountry,
-    href: playerRef,
-  };
-  return infoPlayer;
-};
-
 const getInfoTeam = async ({ page }: { page: Page }): Promise<IInfoTeam> => {
   const teamDocument = await getElement(
     page,

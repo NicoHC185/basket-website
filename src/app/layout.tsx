@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: JSX.Element
 }) {
   return (
     <html lang="en">

@@ -1,9 +1,9 @@
 'use client'
 
-import { Button, Card, CardActions, CardContent, Grid, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Grid, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import axios from "axios";
 import MainCard from "components/cards/MainCard";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DateComponent from 'components/DateComponent'
 import moment, { Moment } from "moment";
 import { IPartidos } from "./dto";
@@ -26,7 +26,7 @@ function checkCode(code: string): string {
 export default function PartidosNBA() {
 
   const [partidos, setPartidos] = useState<IPartidos[]>([])
-  const [date, setDate] = useState<Moment>(moment())
+  const [date, setDate] = useState<Moment | null>(moment())
 
   useEffect(() => {
     getPartidosByDate({ date: moment(date).format('YYYY-MM-DD') })
@@ -75,7 +75,7 @@ export default function PartidosNBA() {
     <MainCard title='Games'>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <DateComponent value={date} handleChange={(value: Moment) => {
+          <DateComponent value={date} handleChange={(value: Moment | null) => {
             setDate(value)
           }}></DateComponent>
         </Grid>

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const SAC = ({ size = 100 }: { size?: number }) => {
   return (

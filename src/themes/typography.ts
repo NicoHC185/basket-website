@@ -3,7 +3,9 @@
  * @param {JsonObject} theme theme customization object
  */
 
-export default function themeTypography(theme: any) {
+import { IThemeServer } from "themes";
+
+export default function themeTypography(theme: IThemeServer) {
   return {
     fontFamily: theme?.customization?.fontFamily,
     h6: {
@@ -87,7 +89,8 @@ export default function themeTypography(theme: any) {
       },
     },
     mainContent: {
-      backgroundColor: theme.background.default,
+      backgroundColor: theme.background,
+      // backgroundColor: theme.background.default,
       width: "100%",
       minHeight: "calc(100vh - 88px)",
       flexGrow: 1,

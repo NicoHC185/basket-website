@@ -3,16 +3,10 @@ import config from "config";
 
 // action - state management
 import * as actionTypes from "./actions";
+import { ICustomRedux } from "interfaces";
+import { AnyAction } from "redux";
 
-interface CounterState {
-  isOpen: any;
-  defaultId: string;
-  fontFamily: string;
-  borderRadius: number;
-  opened: boolean;
-}
-
-export const initialState: CounterState = {
+export const initialState: ICustomRedux = {
   isOpen: [], // for active default menu
   defaultId: "default",
   fontFamily: config.fontFamily,
@@ -22,7 +16,7 @@ export const initialState: CounterState = {
 
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
 
-const customizationReducer = (state = initialState, action: any) => {
+const customizationReducer = (state = initialState, action: AnyAction) => {
   let id;
   switch (action.type) {
     case actionTypes.MENU_OPEN:

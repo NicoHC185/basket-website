@@ -1,5 +1,5 @@
 {
-  "plugins": ["typescript-eslint"],
+  "plugins": ["@typescript-eslint/eslint-plugin"],
   "extends": ["next/core-web-vitals", "next"],
   "rules": {
     // I suggest you add those two rules:

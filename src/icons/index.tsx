@@ -29,10 +29,7 @@ import Tor from 'icons/tor'
 import Uta from 'icons/uta'
 import Was from 'icons/was'
 
-
-export default [
-
-
+const arr = [
   {
     code: 'atl',
     logo: <Atl></Atl>
@@ -154,3 +151,5 @@ export default [
     logo: <Was></Was>
   },
 ]
+
+export default arr

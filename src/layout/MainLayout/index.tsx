@@ -1,26 +1,32 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 // material-ui
-import { styled, useTheme } from '@mui/material/styles';
-import { AppBar, Box, CssBaseline, Toolbar, useMediaQuery } from '@mui/material';
+import { styled, Theme, useTheme } from '@mui/material/styles';
+import { AppBar, Box, CssBaseline, Toolbar } from '@mui/material';
 
 // project imports
 import Breadcrumbs from 'components/extended/Breadcrumbs';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import Customization from '../Customization';
 import navigation from 'menu-items';
-import { drawerWidth, minDrawerWidth } from 'store/constant';
+import { drawerWidth } from 'store/constant';
 import { SET_MENU } from 'store/actions';
 
 // assets
 import { IconChevronRight } from '@tabler/icons-react';
 import { useAppSelector } from 'hooks';
+import { RootState } from 'store';
+
+// interface ThemeCustom extends Theme {
+//   typography: {
+//     mainContent: string
+//   }
+// }
 
 // styles
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }: { theme: any, open: boolean }) => ({
+  ({ theme, open }: { theme: Theme, open: boolean }) => ({
     backgroundColor: theme.palette.background.default,
-    ...theme.typography.mainContent,
+    // ...theme.typography.mainContent,
     ...(!open && {
       borderBottomLeftRadius: 0,
       borderBottomRightRadius: 0,
@@ -66,11 +72,10 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
-const MainLayout = ({ children }: { children: any }) => {
+const MainLayout = ({ children }: { children: JSX.Element }) => {
   const theme = useTheme();
-  const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
   // Handle left drawer
-  const leftDrawerOpened = useAppSelector((state: any) => state.customizationReducer?.opened);
+  const leftDrawerOpened = useAppSelector((state: RootState) => state.customizationReducer?.opened);
   // const { drawerType, container, layout } = useConfig();
   const dispatch = useDispatch();
   const handleLeftDrawerToggle = () => {
@@ -126,7 +131,7 @@ const MainLayout = ({ children }: { children: any }) => {
         )} */}
         <>
           <Breadcrumbs
-            separator={IconChevronRight}
+            separator={<IconChevronRight />}
             navigation={navigation}
             icon
             title

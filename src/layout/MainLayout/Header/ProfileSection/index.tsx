@@ -6,22 +6,17 @@ import { useTheme } from '@mui/material/styles';
 import {
   Avatar,
   Box,
-  Card,
-  CardContent,
   Chip,
   ClickAwayListener,
   Divider,
   Grid,
-  InputAdornment,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  OutlinedInput,
   Paper,
   Popper,
   Stack,
-  Switch,
   Typography
 } from '@mui/material';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -30,49 +25,37 @@ import Transitions from 'components/extended/Transitions';
 import User1 from '@public/assets/images/users/user-round.svg';
 
 // assets
-import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons-react';
+import { IconLogout, IconSettings, IconUser } from '@tabler/icons-react';
 import { useAppSelector } from 'hooks';
 import { useRouter } from 'next/navigation';
-import { styled, } from '@mui/material/styles'
+import { RootState } from 'store';
 
-import colors from "@public/assets/scss/_themes-vars.module.scss";
-
-const ListItemButtonCustom = styled(ListItemButton)({
-  // "&:hover": {
-  //   backgroundColor: colors.primary200,
-  //   // color: "white",
-  // }
-}) as typeof ListItemButton
 
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
   const theme = useTheme();
-  const customization = useAppSelector((state: any) => state.customizationReducer);
+  const customization = useAppSelector((state: RootState) => state.customizationReducer);
   // const navigate = useNavigate();
   const navigate = useRouter()
-
-  const [sdm, setSdm] = useState(true);
-  const [value, setValue] = useState('');
-  const [notification, setNotification] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [open, setOpen] = useState(false);
   /**
    * anchorRef is used on different componets and specifying one type leads to other components throwing an error
    * */
-  const anchorRef = useRef<any>(null);
+  const anchorRef = useRef<HTMLInputElement | null>(null);
   const handleLogout = async () => {
     console.log('Logout');
   };
 
-  const handleClose = (event: any) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+  const handleClose = (event: React.MouseEvent | MouseEvent | TouchEvent) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return;
     }
     setOpen(false);
   };
 
-  const handleListItemClick = (event: any, index: number, route = '') => {
+  const handleListItemClick = (event: React.MouseEvent, index: number, route = '') => {
     setSelectedIndex(index);
     handleClose(event);
 
@@ -87,7 +70,7 @@ const ProfileSection = () => {
   const prevOpen = useRef(open);
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
+      anchorRef.current?.focus();
     }
 
     prevOpen.current = open;
@@ -165,7 +148,7 @@ const ProfileSection = () => {
           <Transitions in={open} {...TransitionProps}>
             <Paper >
               <ClickAwayListener onClickAway={handleClose}>
-                <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}
+                <MainCard border={false} content={false} boxShadow shadow={theme.shadows[16]}
                   sx={{
                     backgroundColor: theme.palette.primary.main
                   }}>
@@ -216,7 +199,7 @@ const ProfileSection = () => {
                             mx: 1
                           }}
                           selected={selectedIndex === 0}
-                          onClick={(event: any) =>
+                          onClick={(event: React.MouseEvent) =>
                             handleListItemClick(event, 0, "#")
                           }
                         >
@@ -237,7 +220,7 @@ const ProfileSection = () => {
                             mx: 1
                           }}
                           selected={selectedIndex === 1}
-                          onClick={(event: any) =>
+                          onClick={(event: React.MouseEvent) =>
                             handleListItemClick(event, 1, "#")
                           }
                         >

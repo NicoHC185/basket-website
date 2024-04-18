@@ -1,7 +1,6 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, ThemeOptions } from "@mui/material/styles";
 
 // assets
-// import colors from '@public/assets/scss/_themes-vars.module.scss';
 import colors from "@public/assets/scss/_themes-vars.module.scss";
 
 // project imports
@@ -9,6 +8,8 @@ import colors from "@public/assets/scss/_themes-vars.module.scss";
 import themePalette from "./palette";
 import themeTypography from "./typography";
 import componentStyleOverrides from "./compStyleOverride";
+import { ICustomRedux } from "interfaces";
+import { IColors } from "interfaces/colors";
 
 declare module "@mui/material/styles" {
   interface PaletteColor {
@@ -17,7 +18,23 @@ declare module "@mui/material/styles" {
   }
 }
 
-export const theme = (customization: any) => {
+export interface IThemeServer {
+  colors: IColors;
+  heading: string;
+  paper: string;
+  backgroundDefault: string;
+  background: string;
+  darkTextPrimary: string;
+  darkTextSecondary: string;
+  textDark: string;
+  menuSelected: string;
+  menuSelectedBack: string;
+  divider: string;
+  customization: ICustomRedux;
+  grey500?: string;
+}
+
+export const theme = (customization: ICustomRedux) => {
   const color = colors;
 
   const themeOption = {
@@ -35,7 +52,7 @@ export const theme = (customization: any) => {
     customization,
   };
 
-  const themeOptions = {
+  const themeOptions: ThemeOptions = {
     // direction: 'ltr',
     palette: themePalette(themeOption),
     mixins: {

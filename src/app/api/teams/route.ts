@@ -1,8 +1,5 @@
 import { NextResponse } from "next/server";
-import puppeteer from "puppeteer-extra";
-import Adblocker from "puppeteer-extra-plugin-adblocker";
 import UserAgent from "user-agents";
-
 import { JSDOM } from "jsdom";
 import { setTimeout } from "timers/promises";
 import { IConference, ITeam } from "interfaces";
@@ -47,8 +44,6 @@ const getConferences = (el: Document): IConference => {
 };
 
 const Puppeteer: () => Promise<IConference[]> = async () => {
-  // puppeteer.use(Adblocker({ blockTrackers: true }));
-  // const browser = await puppeteer.launch({ headless: false });
   const browser = await initialBrowser();
   const page = await browser.newPage();
   const userAgent = new UserAgent();
@@ -72,7 +67,7 @@ const Puppeteer: () => Promise<IConference[]> = async () => {
   return res;
 };
 
-export async function GET(request: Request) {
+export async function GET() {
   const response = await Puppeteer();
   return NextResponse.json(response);
 }

@@ -1,19 +1,24 @@
+import { TablerIconsProps } from "@tabler/icons-react";
+import { IMenuChild } from "./menu";
+
+// El tipo 'IMenuChild[] | undefined' no se puede asignar al tipo 'Element | undefined'.
+// El tipo 'string | ((props: TablerIconsProps) => Element) | null | undefined' no se puede asignar al tipo 'string | undefined'.
 export interface INavItem {
-  caption?: any;
-  children?: any;
+  caption?: string;
+  children?: IMenuChild[] | undefined;
   chip?: {
-    color?: any;
-    variant?: any;
-    size?: any;
-    label?: any;
-    avatar?: any;
+    color?: string;
+    variant?: string;
+    size?: string;
+    label?: string;
+    avatar?: string;
   };
-  disabled?: any;
-  external?: any;
-  icon?: any;
-  id?: any;
-  target?: any;
-  url?: any;
-  title?: any;
+  disabled?: boolean;
+  external?: string;
+  icon?: ((props: TablerIconsProps) => JSX.Element) | string | undefined | null;
+  id?: string;
+  target?: string;
+  url?: string;
+  title?: string;
   type?: string;
 }

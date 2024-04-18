@@ -18,34 +18,37 @@ import {
 import NavItem from "../NavItem";
 
 // assets
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+// import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { usePathname, useRouter } from "next/navigation";
+import { RootState } from "store";
+import { IMenu } from "interfaces";
 
 // ==============================|| SIDEBAR MENU LIST COLLAPSE ITEMS ||============================== //
 
-const NavCollapse = ({ menu, level }: { menu: any; level: any }) => {
+const NavCollapse = ({ menu, level }: { menu: IMenu; level: number }) => {
   const theme = useTheme();
-  const customization = useSelector((state: any) => state.customizationReducer);
+  const customization = useSelector((state: RootState) => state.customizationReducer);
   const navigate = useRouter();
   // const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<any>(null);
+  const [selected, setSelected] = useState<string | null>(null);
 
   const handleClick = () => {
     setOpen(!open);
     setSelected(!selected ? menu.id : null);
     if (menu?.id !== "authentication") {
-      navigate.push(menu.children[0]?.url);
+      const url: string = menu.children && menu.children[0]?.url || ""
+      navigate.push(url);
     }
   };
 
   // const { pathname } = useLocation();
   const pathname = usePathname();
 
-  const checkOpenForParent = (child: any, id: string) => {
-    child.forEach((item: any) => {
+  const checkOpenForParent = (child: IMenu[], id: string) => {
+    child.forEach((item: IMenu) => {
       if (item.url === pathname) {
         setOpen(true);
         setSelected(id);
@@ -58,7 +61,7 @@ const NavCollapse = ({ menu, level }: { menu: any; level: any }) => {
     setOpen(false);
     setSelected(null);
     if (menu.children) {
-      menu.children.forEach((item: any) => {
+      menu.children.forEach((item: IMenu) => {
         if (item.children?.length) {
           checkOpenForParent(item.children, menu.id);
         }
@@ -73,7 +76,7 @@ const NavCollapse = ({ menu, level }: { menu: any; level: any }) => {
   }, [pathname, menu.children]);
 
   // menu collapse & item
-  const menus = menu.children?.map((item:any) => {
+  const menus = menu.children?.map((item: IMenu) => {
     switch (item.type) {
       case "collapse":
         return <NavCollapse key={item.id} menu={item} level={level + 1} />;
@@ -88,22 +91,29 @@ const NavCollapse = ({ menu, level }: { menu: any; level: any }) => {
     }
   });
 
-  const Icon = menu.icon;
-  const menuIcon = menu.icon ? (
-    <Icon
-      strokeWidth={1.5}
-      size="1.3rem"
-      style={{ marginTop: "auto", marginBottom: "auto" }}
-    />
-  ) : (
-    <FiberManualRecordIcon
-      sx={{
-        width: selected === menu.id ? 8 : 6,
-        height: selected === menu.id ? 8 : 6,
-      }}
-      fontSize={level > 0 ? "inherit" : "medium"}
-    />
-  );
+  // const Icon = menu.icon;
+  const Icon = menu.icon
+  // const menuIcon = menu.icon ? (
+  //   <Icon
+  //     strokeWidth={1.5}
+  //     size="1.3rem"
+  //     style={{ marginTop: "auto", marginBottom: "auto" }}
+  //   />
+  // ) : (
+  //   <FiberManualRecordIcon
+  //     sx={{
+  //       width: selected === menu.id ? 8 : 6,
+  //       height: selected === menu.id ? 8 : 6,
+  //     }}
+  //     fontSize={level > 0 ? "inherit" : "medium"}
+  //   />
+  // );
+  const menuIcon = <Icon
+    strokeWidth={1.5}
+    size="1.3rem"
+    style={{ marginTop: "auto", marginBottom: "auto" }}
+  />
+
 
   return (
     <>

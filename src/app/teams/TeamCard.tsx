@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Link, Paper, Stack, styled, Typography, useTheme } from "@mui/material"
+import { Card, CardContent, CardHeader, Link, Paper, Stack, Typography, useTheme } from "@mui/material"
 import { ITeam } from "interfaces"
 import { useMemo } from "react"
 import { findLogo } from "utils"
@@ -7,6 +7,7 @@ const PaperResult = ({ team, field }: { team: ITeam, field: 'victories' | 'defea
   const theme = useTheme()
   const bgColor = useMemo(() => {
     return field === 'victories' ? theme.palette.success.light : theme.palette.error.light
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [field])
   return <Paper variant="outlined"
     sx={{ width: 60, height: 30, textAlign: "center", alignContent: 'center', mx: 1, backgroundColor: bgColor }}

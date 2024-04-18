@@ -1,6 +1,5 @@
 // import { Link } from 'react-router-dom';
 import Link from 'next/link';
-import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { ButtonBase } from '@mui/material';

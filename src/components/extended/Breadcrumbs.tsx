@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Component, FC, ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from '@mui/material';
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -11,11 +11,12 @@ import config from 'config';
 import { gridSpacing } from 'store/constant';
 
 // assets
-import { IconTallymark1, TablerIconsProps } from '@tabler/icons-react';
+import { IconTallymark1 } from '@tabler/icons-react';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
 import HomeIcon from '@mui/icons-material/Home';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
-import { IMenuList } from 'interfaces';
+import { IMenu } from 'interfaces';
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 const linkSX = {
   display: 'flex',
@@ -32,13 +33,16 @@ interface IBreadcrumbs {
   icons?: JSX.Element;
   maxItems?: number;
   navigation?: {
-    items?: Array<IMenuList>
+    items?: Array<IMenu>
   };
   rightAlign?: boolean;
-  separator?: JSX.Element | any;
+  separator?: JSX.Element
+  // separator?: JSX.Element | (() => JSX.Element)
   title?: boolean;
   titleBottom?: string;
 }
+
+let mainContent: JSX.Element;
 
 // ==============================|| BREADCRUMBS ||============================== //
 
@@ -53,25 +57,26 @@ const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAl
     color: theme.palette.primary.main
   };
 
-  const [main, setMain] = useState({
+  const [main, setMain] = useState<IMenu>({
     id: "",
     title: "",
     type: "",
-    icon: null,
+    icon: () => <FiberManualRecordIcon></FiberManualRecordIcon>,
     breadcrumbs: null,
   });
-  const [item, setItem] = useState({
+  const [item, setItem] = useState<IMenu>({
     id: "",
     title: "",
     type: "",
-    icon: null,
+    icon: () => <FiberManualRecordIcon></FiberManualRecordIcon>,
     breadcrumbs: null,
+    children: undefined
   });
 
   // set active item state
-  const getCollapse = (menu: any) => {
+  const getCollapse = (menu: IMenu) => {
     if (menu.children) {
-      menu.children.filter((collapse: any) => {
+      menu.children.filter((collapse: IMenu) => {
         if (collapse.type && collapse.type === 'collapse') {
           getCollapse(collapse);
         } else if (collapse.type && collapse.type === 'item') {
@@ -94,21 +99,17 @@ const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAl
     });
   });
 
-  // item separator
-  // const SeparatorIcon = separator;
-  // const separatorIcon = separator ? <SeparatorIcon stroke={1.5} size="1rem" /> : <IconTallymark1 stroke={1.5} size="1rem" />;
   const separatorIcon = separator ? separator : <IconTallymark1 stroke={1.5} size="1rem" />;
 
-  let mainContent: any;
   let itemContent;
   let breadcrumbContent = <Typography />;
   let itemTitle = '';
-  let CollapseIcon;
+  let CollapseIcon
   let ItemIcon;
 
   // collapse item
   if (main && main.type === 'collapse') {
-    CollapseIcon = main.icon ? main.icon : AccountTreeTwoToneIcon;
+    CollapseIcon = AccountTreeTwoToneIcon;
     mainContent = (
       <Link href={'#'}>
         <Typography variant="subtitle1" sx={linkSX}>
@@ -123,7 +124,7 @@ const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAl
   if (item && item.type === 'item') {
     itemTitle = item.title;
 
-    ItemIcon = item.icon ? item.icon : AccountTreeTwoToneIcon;
+    ItemIcon = AccountTreeTwoToneIcon;
     itemContent = (
       <Typography
         variant="subtitle1"

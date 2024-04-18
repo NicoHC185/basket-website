@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -28,6 +27,7 @@ import { SET_BORDER_RADIUS, SET_FONT_FAMILY } from 'store/actions';
 import { gridSpacing } from 'store/constant';
 // import SubCard from 'components/cards/SubCard';
 import { useAppDispatch, useAppSelector } from 'hooks';
+import { RootState } from 'store';
 
 // concat 'px'
 function valueText(value: number) {
@@ -39,7 +39,7 @@ function valueText(value: number) {
 const Customization = () => {
   const theme = useTheme();
   const dispatch = useAppDispatch()
-  const customization = useAppSelector((state: any) => state.customizationReducer);
+  const customization = useAppSelector((state: RootState) => state.customizationReducer);
 
   // drawer on/off
   const [open, setOpen] = useState(false);
@@ -48,8 +48,8 @@ const Customization = () => {
   };
 
   // state - border radius
-  const [borderRadius, setBorderRadius] = useState(customization.borderRadius);
-  const handleBorderRadius = (event: any, newValue: any) => {
+  const [borderRadius, setBorderRadius] = useState<number | number[]>(customization.borderRadius);
+  const handleBorderRadius = (event: Event, newValue: number | number[]) => {
     setBorderRadius(newValue);
   };
 

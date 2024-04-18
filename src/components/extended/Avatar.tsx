@@ -7,13 +7,12 @@ import { ReactElement } from 'react';
 
 // ==============================|| AVATAR ||============================== //
 
-const Avatar = ({ color, outline, size, sx, children, ...others }:
+const Avatar = ({ color, outline, size, sx, ...others }:
   {
     color: string, outline: boolean, size: string | number, sx?: Object, children: ReactElement,
     href: string,
     alt: string,
     target: string,
-    component: any
   }) => {
   const theme = useTheme();
 

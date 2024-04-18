@@ -1,8 +1,5 @@
-import PropTypes from 'prop-types';
-import { ReactElement, ReactNode, forwardRef, useEffect, useMemo } from 'react';
-
+import { ReactNode, forwardRef, useMemo } from 'react';
 // material-ui
-import { useTheme } from '@mui/material/styles';
 import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 
 // constant
@@ -15,18 +12,13 @@ const headerSX = {
 const MainCard = forwardRef(
   function MainCard(
     {
-      border = true,
-      boxShadow,
       children,
       content = true,
       contentClass = '',
       contentSX = {},
-      darkTitle,
-      secondary,
-      shadow,
       sx = {},
       title,
-      elevation,
+      // ref,
       ...others
     }: {
       border?: Boolean,
@@ -40,17 +32,13 @@ const MainCard = forwardRef(
       shadow?: string,
       sx?: object,
       title?: ReactNode | string,
-      elevation?: any
     },
-    ref: any
   ) {
-    const theme = useTheme();
     const isTitleString = useMemo(() => {
       return typeof title === 'string'
     }, [title])
     return (
       <Card
-        ref={ref}
         {...others}
         sx={{
           // border: border ? '1px solid' : 'none',

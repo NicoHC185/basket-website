@@ -1,21 +1,19 @@
 'use client'
 
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import { CssBaseline } from "@mui/material";
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import { ThemeProvider } from '@mui/material/styles'
 import NavigationScroll from 'layout/NavigationScroll';
 import { useAppSelector } from 'hooks';
-import { FC, ReactNode, useEffect } from 'react';
 import themes from 'themes';
-import store from 'store';
-import { IChildrenProps } from 'interfaces';
+import store, { RootState } from 'store';
 import MainLayout from 'layout/MainLayout';
 import '@public/assets/scss/style.scss';
-import { styled } from '@mui/material/styles';
 
-const ProvideWapped: FC<IChildrenProps> = ({ children }) => {
-  const custom = useAppSelector((state: any) => state.customizationReducer)
+
+const ProvideWapped = ({ children }: { children: JSX.Element }): JSX.Element => {
+  const custom = useAppSelector((state: RootState) => state.customizationReducer)
 
   return <StyledEngineProvider injectFirst>
     <ThemeProvider theme={themes(custom)}>
@@ -29,7 +27,7 @@ const ProvideWapped: FC<IChildrenProps> = ({ children }) => {
   </StyledEngineProvider>
 }
 
-export const LayoutProvider: FC<IChildrenProps> = ({ children }) => {
+export const LayoutProvider = ({ children }: { children: JSX.Element }): JSX.Element => {
   return (
     <Provider store={store}>
       <ProvideWapped>

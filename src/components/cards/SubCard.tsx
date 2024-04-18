@@ -3,7 +3,7 @@ import { forwardRef, ReactNode, Ref } from 'react';
 
 // material-ui
 import { useTheme, Theme } from '@mui/material/styles';
-import { Card, CardContent, CardHeader, Divider, Typography, CardProps, CardHeaderProps, CardContentProps } from '@mui/material';
+import { Card, CardContent, CardHeader, Divider, Typography, CardHeaderProps, CardContentProps } from '@mui/material';
 
 // ==============================|| CUSTOM SUB CARD ||============================== //
 
@@ -105,5 +105,7 @@ SubCard.propTypes = {
 SubCard.defaultProps = {
   content: true,
 };
+
+SubCard.displayName = 'SubCard'
 
 export default SubCard;

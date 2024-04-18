@@ -1,7 +1,6 @@
 'use client'
 
-import { Box, Skeleton, Stack, Typography } from "@mui/material"
-import axios from "axios"
+import { Skeleton, Stack, Typography } from "@mui/material"
 import MainCard from "components/cards/MainCard"
 import { IInfoPlayer, IInfoTeam } from "interfaces"
 import moment from "moment"
@@ -15,7 +14,6 @@ const Team = () => {
   const { teamId } = useParams()
   const [infoTeam, setInfoTeam] = useState<IInfoTeam | null>(null)
   const [roster, setRoster] = useState<IInfoPlayer[]>([])
-  const [gameResult, setGameResult] = useState([])
   const [load, setLoad] = useState(true)
 
   const bodyPost = {
@@ -31,6 +29,7 @@ const Team = () => {
       setRoster(roster)
       setLoad(false)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getInfoTeam = () => {

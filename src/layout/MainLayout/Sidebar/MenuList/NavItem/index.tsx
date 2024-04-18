@@ -2,50 +2,32 @@
 
 import PropTypes from 'prop-types';
 import { forwardRef, useEffect, useMemo } from 'react';
-// import { Link, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
-import { styled } from '@mui/material/styles'
-
 // project imports
 import { MENU_OPEN, SET_MENU } from 'store/actions';
-
-// assets
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Link } from '@mui/material'
-import { INavItem } from 'interfaces';
+import { IMenu } from 'interfaces';
+import { RootState } from 'store';
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
 const NavItem = ({ item, level }: {
-  item: INavItem, level: number
+  item: IMenu, level: number
 }) => {
   const theme = useTheme();
   const dispatch =
     useAppDispatch()
 
-  const { zone } = useParams()
   const pathname = usePathname();
-  const customization = useAppSelector((state: any) => state.customizationReducer);
+  const customization = useAppSelector((state: RootState) => state.customizationReducer);
   const matchesSM = useMediaQuery(theme.breakpoints.down('lg'));
   const Icon = item.icon;
-  const itemIcon = item?.icon ? (
-    <Icon stroke={1.5} size="1.3rem" />
-  ) : (
-    <FiberManualRecordIcon
-      sx={{
-        width: customization.isOpen.findIndex((id: any) => id === item?.id) > -1 ? 8 : 6,
-        height: customization.isOpen.findIndex((id: any) => id === item?.id) > -1 ? 8 : 6
-      }}
-      fontSize={level > 0 ? 'inherit' : 'medium'}
-    />
-  );
-
+  const itemIcon = <Icon stroke={1.5} size="1.3rem" />
   let itemTarget = '_self';
   if (item.target) {
     itemTarget = '_blank';
@@ -53,14 +35,15 @@ const NavItem = ({ item, level }: {
 
   const newUrl = useMemo(() => {
     return `/${item.url}`
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   let listItemProps: {
-    component?: any,
+    component?: {},
     href?: string,
-    target?: any
+    target?: string
   } = {
-    component: forwardRef(function LinkComponent(props, ref) {
+    component: forwardRef(function LinkComponent(props) {
       return <Link {...props} href={newUrl} target={itemTarget} />;
     })
   };
@@ -68,7 +51,7 @@ const NavItem = ({ item, level }: {
     listItemProps = { component: 'a', href: newUrl, target: itemTarget };
   }
 
-  const itemHandler = (id: any) => {
+  const itemHandler = (id: string) => {
     dispatch({ type: MENU_OPEN, id });
     if (matchesSM) dispatch({ type: SET_MENU, opened: false });
   };
@@ -97,7 +80,7 @@ const NavItem = ({ item, level }: {
         py: level > 1 ? 1 : 1.25,
         pl: customization.opened ? `${level * 24}px` : 1.5
       }}
-      selected={customization.isOpen.findIndex((id: any) => id === item.id) > -1}
+      selected={customization.isOpen.findIndex((id: string) => id === item.id) > -1}
       onClick={() => itemHandler(item.id)}
     >
       <ListItemIcon

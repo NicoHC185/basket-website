@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const HOU = ({ size = 100 }: { size?: number }) => {
   return (

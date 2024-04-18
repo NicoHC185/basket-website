@@ -2,10 +2,8 @@
 import { Grid, Skeleton, Stack, Typography } from '@mui/material'
 import axios from 'axios'
 import MainCard from 'components/cards/MainCard'
-import Logos from 'icons'
 import { IConference } from 'interfaces'
 import { useEffect, useState } from 'react'
-import { findLogo } from 'utils'
 import TeamCard from './TeamCard'
 
 const Teams = () => {
@@ -15,6 +13,7 @@ const Teams = () => {
 
   useEffect(() => {
     getTeams()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getTeams = () => {

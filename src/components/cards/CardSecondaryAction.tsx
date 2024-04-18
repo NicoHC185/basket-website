@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
-import { ButtonBase, Link, Tooltip } from '@mui/material';
+import { ButtonBase, Tooltip } from '@mui/material';
 
 // project imports
 import Avatar from '../extended/Avatar';
@@ -15,7 +15,7 @@ const CardSecondaryAction = ({ title, link, icon }: { title: string, link: strin
     <Tooltip title={title || 'Reference'} placement="left">
       <ButtonBase disableRipple>
         {!icon && (
-          <Avatar component={Link} href={link} target="_blank" alt="MUI Logo" size="badge" color="primary" outline>
+          <Avatar href={link} target="_blank" alt="MUI Logo" size="badge" color="primary" outline>
             <svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clip0)">
                 <path d="M100 260.9V131L212.5 195.95V239.25L137.5 195.95V282.55L100 260.9Z" fill={theme.palette.primary.color800} />
@@ -38,7 +38,7 @@ const CardSecondaryAction = ({ title, link, icon }: { title: string, link: strin
           </Avatar>
         )}
         {icon && (
-          <Avatar component={Link} href={link} target="_blank" size="badge" color="primary" outline alt='avatar'>
+          <Avatar href={link} target="_blank" size="badge" color="primary" outline alt='avatar'>
             {icon}
           </Avatar>
         )}

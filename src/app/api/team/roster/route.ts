@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
-import puppeteer from "puppeteer-extra";
-import Adblocker from "puppeteer-extra-plugin-adblocker";
 import UserAgent from "user-agents";
-import { JSDOM } from "jsdom";
-import { ElementHandle, EventEmitter, Page, PageEvents } from "puppeteer";
+import { Page } from "puppeteer";
 import { IInfoPlayer } from "interfaces";
 import { getElement, initialBrowser } from "app/api/utils";
 

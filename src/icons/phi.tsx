@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const PHI = ({ size = 100 }: { size?: number }) => {
   return (

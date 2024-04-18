@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect, ChangeEvent } from 'react';
-// import { Link } from 'react-router-dom';
-import Link from 'next/link';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -70,8 +68,8 @@ const NotificationSection = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event: any) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+  const handleClose = (event: MouseEvent | TouchEvent) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return;
     }
     setOpen(false);
@@ -144,7 +142,7 @@ const NotificationSection = () => {
           <Transitions position={matchesXs ? 'top' : 'top-right'} in={open} {...TransitionProps}>
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
-                <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
+                <MainCard border={false} content={false} boxShadow shadow={theme.shadows[16]}>
                   <Grid container direction="column" spacing={2}>
                     <Grid item xs={12}>
                       <Grid container alignItems="center" justifyContent="space-between" sx={{ pt: 2, px: 2 }}>

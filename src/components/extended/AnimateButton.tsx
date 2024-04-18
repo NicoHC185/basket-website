@@ -115,4 +115,6 @@ AnimateButton.defaultProps = {
   },
 };
 
+AnimateButton.displayName = 'AnimateButton'
+
 export default AnimateButton;

@@ -1,9 +1,9 @@
-import { IMenuList } from "interfaces";
+import { IMenu } from "interfaces";
 import NBA from "./nba";
 
 // ==============================|| MENU ITEMS ||============================== //
 
-const menuItems: { items: Array<IMenuList> } = {
+const menuItems: { items: Array<IMenu> } = {
   items: [NBA],
 };
 

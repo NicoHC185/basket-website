@@ -1,26 +1,23 @@
 import PropTypes from 'prop-types';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Divider, List, Typography } from '@mui/material';
+import { List, Typography } from '@mui/material';
 
 // project imports
 import NavItem from '../NavItem';
 import NavCollapse from '../NavCollapse';
-import { IMenuList, INavItem } from 'interfaces';
-import customizationReducer from '../../../../../store/customizationReducer';
+import { IMenu } from 'interfaces';
 import { useAppSelector } from 'hooks';
 
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
 const NavGroup = ({ item }: {
-  item: INavItem
+  item: IMenu
 }) => {
-  const theme = useTheme()
   const customizationReducer = useAppSelector(state => state.customizationReducer)
   const { opened } = customizationReducer
   // menu list collapse & items
-  const items = item.children?.map((menu: any) => {
+  const items = item.children?.map((menu: IMenu) => {
     switch (menu.type) {
       case 'collapse':
         return <NavCollapse key={menu.id} menu={menu} level={1} />;

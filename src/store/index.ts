@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./reducer";
 import menu from "./slice/menu";
 import customizationReducer from "./customizationReducer";
 

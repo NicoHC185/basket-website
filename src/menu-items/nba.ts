@@ -6,8 +6,8 @@ import {
   IconPlayBasketball,
   IconCalendarMonth,
 } from "@tabler/icons-react";
-
-import { IMenuList } from "interfaces";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import { IMenu } from "interfaces";
 
 // constant
 const icons = {
@@ -16,14 +16,16 @@ const icons = {
   IconUsersGroup,
   IconPlayBasketball,
   IconCalendarMonth,
+  FiberManualRecordIcon,
 };
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
 
-const NBA: IMenuList = {
+const NBA: IMenu = {
   id: "nba",
   title: "NBA",
   type: "group",
+  icon: icons.IconDashboard,
   children: [
     {
       id: "games",
