@@ -43,8 +43,8 @@ const NavItem = ({ item, level }: {
     href?: string,
     target?: string
   } = {
-    component: forwardRef(function LinkComponent(props) {
-      return <Link {...props} href={newUrl} target={itemTarget} />;
+    component: forwardRef<HTMLAnchorElement, Object>(function LinkComponent(props, ref) {
+      return <Link ref={ref} {...props} href={newUrl} target={itemTarget} />
     })
   };
   if (item?.external) {

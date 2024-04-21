@@ -16,17 +16,27 @@ import { IconChevronRight } from '@tabler/icons-react';
 import { useAppSelector } from 'hooks';
 import { RootState } from 'store';
 
-// interface ThemeCustom extends Theme {
-//   typography: {
-//     mainContent: string
-//   }
-// }
+declare module "@mui/material/styles" {
+  interface Theme {
+    typography: {
+      mainContent: {
+        // backgroundColor: string,
+        width: string,
+        minHeight: string,
+        flexGrow: string,
+        padding: string,
+        marginTop: string,
+        marginRight: string,
+      };
+    }
+  }
+}
 
 // styles
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }: { theme: Theme, open: boolean }) => ({
     backgroundColor: theme.palette.background.default,
-    // ...theme.typography.mainContent,
+    ...theme.typography.mainContent,
     ...(!open && {
       borderBottomLeftRadius: 0,
       borderBottomRightRadius: 0,

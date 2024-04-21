@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions } from "@mui/material/styles";
+import { createTheme, Theme, ThemeOptions } from "@mui/material/styles";
 
 // assets
 import colors from "@public/assets/scss/_themes-vars.module.scss";
@@ -41,7 +41,7 @@ export const theme = (customization: ICustomRedux) => {
     colors: color,
     heading: color.grey900,
     paper: color.paper,
-    backgroundDefault: color.paper,
+    backgroundDefault: color.primaryLight,
     background: color.primaryLight,
     darkTextPrimary: color.grey700,
     darkTextSecondary: color.grey500,
@@ -53,7 +53,6 @@ export const theme = (customization: ICustomRedux) => {
   };
 
   const themeOptions: ThemeOptions = {
-    // direction: 'ltr',
     palette: themePalette(themeOption),
     mixins: {
       toolbar: {
@@ -67,8 +66,7 @@ export const theme = (customization: ICustomRedux) => {
     typography: themeTypography(themeOption),
   };
 
-  const themes = createTheme(themeOptions);
-  // const themes = createTheme();
+  const themes: Theme = createTheme(themeOptions);
   themes.components = componentStyleOverrides(themeOption);
 
   return themes;

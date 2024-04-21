@@ -28,7 +28,7 @@ export interface ITheme {
   divider: string;
 }
 
-interface PaletteOptionsCustom extends PaletteOptions {
+export interface PaletteOptionsCustom extends PaletteOptions {
   orange: {
     light: string;
     main: string;

@@ -64,9 +64,6 @@ export default function themeTypography(theme: IThemeServer) {
       lineHeight: "1.5em",
       color: theme.darkTextPrimary,
     },
-    // button: {
-    //   textTransform: "capitalize",
-    // },
     customInput: {
       marginTop: 1,
       marginBottom: 1,
@@ -89,15 +86,11 @@ export default function themeTypography(theme: IThemeServer) {
       },
     },
     mainContent: {
-      backgroundColor: theme.background,
-      // backgroundColor: theme.background.default,
       width: "100%",
       minHeight: "calc(100vh - 88px)",
       flexGrow: 1,
-      padding: "20px",
+      padding: "24px",
       marginTop: "88px",
-      marginRight: "20px",
-      // borderRadius: `${theme?.customization?.borderRadius}px`,
     },
     menuCaption: {
       fontSize: "0.875rem",
